@@ -1,57 +1,49 @@
 <template>
-	<div id="app" style="height: 90%; width: 90%; position: absolute;">
-		<div id="map" class="map" style="height: 90%; width: 90%;"></div>
+	<div id="app" >
+		<!--路由视图-->
+		<router-view />
+		<!-- <router-link to='/first'>返回</router-link>| -->
+		<div style="margin-top: 20px;" class="page">
+			<router-link to='/large_screen' class="lin">瓦片</router-link>
+			<router-link to='/router_index' class="lin">点</router-link>
+			<router-link to='/router_second' class="lin">线</router-link>
+			<router-link to='/router_three' class="lin">面</router-link>
+		</div>
 	</div>
+	
 </template>
 
 <script>
-	import {
-		Map,
-		View
-	} from 'ol';
-	import TileLayer from 'ol/layer/Tile';
-	import XYZ from 'ol/source/XYZ';
-	import {
-		fromLonLat
-	} from 'ol/proj'
-	export default {
-		name: 'OpenLayersMap',
-		data() {
-			return {
-				map: null,
-			};
-		},
-		mounted() {
-			this.initMap();
-		},
-		methods: {
-			initMap() {
-				// 创建地图实例
-				
-				this.map = new Map({
-					target: 'map', // 对应页面上的div的id
-					layers: [
-						new TileLayer({ //添加瓦片图层
-							// source: new OSM(),
-							source: new XYZ({
-								url: 'https://webrd01.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}'
-							})
-						}),
-					],
-
-					view: new View({
-						center: fromLonLat([120.771441, 30.756433]), //地图中心点
-						zoom: 15, // 缩放级别
-						minZoom: 0, // 最小缩放级别
-						maxZoom: 18, // 最大缩放级别
-						constrainResolution: true // 因为存在非整数的缩放级别，所以设置该参数为true来让每次缩放结束后自动缩放到距离最近的一个整数级别，这个必须要设置，当缩放在非整数级别时地图会糊
-					}),
-				});
-			},
-		},
-	};
+	
 </script>
 
 <style>
-	@import url("/node_modules/ol/ol.css");
+	
+	*{
+		padding: 0;
+		margin: 0;
+	}
+	#app{
+		/* height: 100%;
+		width: 100%;
+		position: absolute; */
+		text-align: center;
+	}
+	
+	.lin{
+		margin-left: 8px;
+		font-size: 16px;
+		border: 1px solid;
+		padding: 5px;
+		border-radius: 5px;
+	}
+	.lin:hover{
+		color: #0000c2;
+	}
+	.page{
+		position: absolute;
+		bottom: 10px;
+		width: 40%;
+		margin-left: 30%;
+	}
 </style>
